@@ -20,6 +20,10 @@ public class Rocket : MonoBehaviour {
     [SerializeField] AudioClip crash;
     [SerializeField] AudioClip landingSound;
 
+    [SerializeField] ParticleSystem firePS;
+    [SerializeField] ParticleSystem succesPS;
+    [SerializeField] ParticleSystem crashPS;
+
 
     // Use this for initialization
     void Start () {
@@ -56,6 +60,7 @@ public class Rocket : MonoBehaviour {
 
     private void failureSequence() {
         state = State.Dying;
+        crashPS.Play();
         audioSource.Stop();
         audioSource.PlayOneShot(crash);
         Invoke("LoadFirstLevel", 1f);
@@ -63,6 +68,7 @@ public class Rocket : MonoBehaviour {
 
     private void SuccessSequence() {
         state = State.Transitioning;
+        succesPS.Play();
         audioSource.Stop();
         audioSource.PlayOneShot(landingSound);
         Invoke("LoadNextLevel", 1f);
@@ -87,11 +93,14 @@ public class Rocket : MonoBehaviour {
             ApplyThrust();
         } else {
             audioSource.Stop();
+            firePS.Stop();
         }
     }
 
     private void ApplyThrust() {
         float thrustThisFrame = thrustSpeed * Time.deltaTime;
+
+        if (firePS.isStopped) firePS.Play();
 
         rigidBody.AddRelativeForce(Vector3.up * thrustThisFrame);
         if (!audioSource.isPlaying) audioSource.PlayOneShot(mainEngine);
