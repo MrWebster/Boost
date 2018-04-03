@@ -25,8 +25,10 @@ public class Rocket : MonoBehaviour {
         if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.RightArrow)) {
             print("no rotate");
         } else if (Input.GetKey(KeyCode.LeftArrow)) {
+            transform.Rotate(Vector3.forward);
             print("rotate left");
         } else if (Input.GetKey(KeyCode.RightArrow)) {
+            transform.Rotate(Vector3.back);
             print("rotate right");
         }
     }
