@@ -130,7 +130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64b74700153e4c543afda87937b5392a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementVector: {x: 6.5, y: 0, z: 0}
+  movementVector: {x: 5, y: 0, z: 0}
+  period: 4
   movementFactor: 0
 --- !u!1001 &387409776
 Prefab:
@@ -519,7 +520,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4644885538320944, guid: bb95a5e7e7c6bec499e02cf5eee6a4b7, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -28.88
+      value: -29.85
       objectReference: {fileID: 0}
     - target: {fileID: 4644885538320944, guid: bb95a5e7e7c6bec499e02cf5eee6a4b7, type: 2}
       propertyPath: m_LocalPosition.y
