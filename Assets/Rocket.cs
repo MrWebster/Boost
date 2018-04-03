@@ -8,16 +8,23 @@ public class Rocket : MonoBehaviour {
 
     // TODO: Fix lighting bug
     Rigidbody rigidBody;
-    AudioSource thrustSound;
+    AudioSource audioSource;
+
     enum State { Alive, Dying, Transitioning }
     State state = State.Alive;
+
     public float thrustSpeed = 100f;
     [SerializeField] float rotationSpeed = 100f; // not accessible in other scripts, but accessabile in editor
+
+    [SerializeField] AudioClip mainEngine;
+    [SerializeField] AudioClip crash;
+    [SerializeField] AudioClip landingSound;
+
 
     // Use this for initialization
     void Start () {
         rigidBody = GetComponent<Rigidbody>();
-        thrustSound = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -39,24 +46,37 @@ public class Rocket : MonoBehaviour {
             case "Friendly":
                 break;
             case "Finish":
-                state = State.Transitioning;
-                print("finish");
-                Invoke("LoadNextLevel", 1f);
+                SuccessSequence();
                 break;
             default:
-                state = State.Dying;
-                Invoke("LoadFirstLevel", 1f);
+                failureSequence();
                 break;
         }
     }
 
+    private void failureSequence() {
+        state = State.Dying;
+        audioSource.Stop();
+        audioSource.PlayOneShot(crash);
+        Invoke("LoadFirstLevel", 1f);
+    }
+
+    private void SuccessSequence() {
+        state = State.Transitioning;
+        audioSource.Stop();
+        audioSource.PlayOneShot(landingSound);
+        Invoke("LoadNextLevel", 1f);
+    }
+
     private void LoadNextLevel() {
         state = State.Alive;
+        audioSource.Stop();
         SceneManager.LoadScene(1);
     }
 
     private void LoadFirstLevel() {
         state = State.Alive;
+        audioSource.Stop();
         SceneManager.LoadScene(0);
     }
 
@@ -64,11 +84,17 @@ public class Rocket : MonoBehaviour {
         float thrustThisFrame = thrustSpeed * Time.deltaTime;
 
         if (Input.GetKey(KeyCode.Space)) {
-            rigidBody.AddRelativeForce(Vector3.up * thrustThisFrame);
-            if (!thrustSound.isPlaying) thrustSound.Play();
+            ApplyThrust();
         } else {
-            thrustSound.Stop();
+            audioSource.Stop();
         }
+    }
+
+    private void ApplyThrust() {
+        float thrustThisFrame = thrustSpeed * Time.deltaTime;
+
+        rigidBody.AddRelativeForce(Vector3.up * thrustThisFrame);
+        if (!audioSource.isPlaying) audioSource.PlayOneShot(mainEngine);
     }
 
     private void Rotate() {
