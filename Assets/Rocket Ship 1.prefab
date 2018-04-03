@@ -498,6 +498,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thrustSpeed: 100
   rotationSpeed: 100
+  levelLoadDelay: 1
   mainEngine: {fileID: 8300000, guid: 502f19a0ef4c05849a35cc97b7c786f6, type: 3}
   crash: {fileID: 8300000, guid: 07f6cdeb1d12b8a459e2cf051da16630, type: 3}
   landingSound: {fileID: 8300000, guid: 7448b78cd9a6bc844b39e076af65c7cc, type: 3}

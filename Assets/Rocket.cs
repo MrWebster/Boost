@@ -16,6 +16,8 @@ public class Rocket : MonoBehaviour {
     public float thrustSpeed = 100f;
     [SerializeField] float rotationSpeed = 100f; // not accessible in other scripts, but accessabile in editor
 
+    [SerializeField] float levelLoadDelay = 1f;
+
     [SerializeField] AudioClip mainEngine;
     [SerializeField] AudioClip crash;
     [SerializeField] AudioClip landingSound;
@@ -63,7 +65,7 @@ public class Rocket : MonoBehaviour {
         crashPS.Play();
         audioSource.Stop();
         audioSource.PlayOneShot(crash);
-        Invoke("LoadFirstLevel", 1f);
+        Invoke("LoadFirstLevel", levelLoadDelay);
     }
 
     private void SuccessSequence() {
@@ -71,7 +73,7 @@ public class Rocket : MonoBehaviour {
         succesPS.Play();
         audioSource.Stop();
         audioSource.PlayOneShot(landingSound);
-        Invoke("LoadNextLevel", 1f);
+        Invoke("LoadNextLevel", levelLoadDelay);
     }
 
     private void LoadNextLevel() {
@@ -87,7 +89,6 @@ public class Rocket : MonoBehaviour {
     }
 
     private void Thrust() {
-        float thrustThisFrame = thrustSpeed * Time.deltaTime;
 
         if (Input.GetKey(KeyCode.Space)) {
             ApplyThrust();
