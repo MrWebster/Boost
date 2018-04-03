@@ -89,7 +89,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 112000002, guid: 599b41590a75ef84eb6e054a6d8720ef,
+  m_LightingDataAsset: {fileID: 112000002, guid: 4b431551c1ecf814783c5cf18980fca2,
     type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -473,7 +473,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4215741526690634, guid: 5ecf63936c89dc34dbf0abbb58fb7142, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 13.68
       objectReference: {fileID: 0}
     - target: {fileID: 4215741526690634, guid: 5ecf63936c89dc34dbf0abbb58fb7142, type: 2}
       propertyPath: m_LocalPosition.z
@@ -499,6 +499,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 4215741526690634, guid: 5ecf63936c89dc34dbf0abbb58fb7142, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 4.3080187
+      objectReference: {fileID: 0}
+    - target: {fileID: 4215741526690634, guid: 5ecf63936c89dc34dbf0abbb58fb7142, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 7.259781
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5ecf63936c89dc34dbf0abbb58fb7142, type: 2}
   m_IsPrefabParent: 0
@@ -515,7 +523,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4644885538320944, guid: bb95a5e7e7c6bec499e02cf5eee6a4b7, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 6.1
+      value: 18.67
       objectReference: {fileID: 0}
     - target: {fileID: 4644885538320944, guid: bb95a5e7e7c6bec499e02cf5eee6a4b7, type: 2}
       propertyPath: m_LocalPosition.z

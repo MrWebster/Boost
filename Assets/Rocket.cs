@@ -2,13 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour {
 
+    // TODO: Fix lighting bug
     Rigidbody rigidBody;
     AudioSource thrustSound;
+    enum State { Alive, Dying, Transitioning }
+    State state = State.Alive;
     public float thrustSpeed = 100f;
-    public float rotationSpeed = 100f;
+    [SerializeField] float rotationSpeed = 100f; // not accessible in other scripts, but accessabile in editor
 
     // Use this for initialization
     void Start () {
@@ -22,8 +26,10 @@ public class Rocket : MonoBehaviour {
 	}
 
     private void ProcesInput() {
-        Thrust();
-        Rotate();
+        if (state == State.Alive) {
+            Thrust();
+            Rotate();
+        }
     }
 
     void OnCollisionEnter(Collision collision) {
@@ -32,10 +38,26 @@ public class Rocket : MonoBehaviour {
         switch(collision.gameObject.tag) {
             case "Friendly":
                 break;
+            case "Finish":
+                state = State.Transitioning;
+                print("finish");
+                Invoke("LoadNextLevel", 1f);
+                break;
             default:
-                print("dead");
+                state = State.Dying;
+                Invoke("LoadFirstLevel", 1f);
                 break;
         }
+    }
+
+    private void LoadNextLevel() {
+        state = State.Alive;
+        SceneManager.LoadScene(1);
+    }
+
+    private void LoadFirstLevel() {
+        state = State.Alive;
+        SceneManager.LoadScene(0);
     }
 
     private void Thrust() {
