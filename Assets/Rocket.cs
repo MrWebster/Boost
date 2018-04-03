@@ -7,9 +7,11 @@ public class Rocket : MonoBehaviour {
 
     Rigidbody rigidBody;
     AudioSource thrustSound;
+    public float thrustSpeed = 100f;
+    public float rotationSpeed = 100f;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         rigidBody = GetComponent<Rigidbody>();
         thrustSound = GetComponent<AudioSource>();
 	}
@@ -20,32 +22,35 @@ public class Rocket : MonoBehaviour {
 	}
 
     private void ProcesInput() {
-        thrust();
-        rotate();
+        Thrust();
+        Rotate();
     }
 
-    private void rotate() {
-        rigidBody.freezeRotation = true;
+    private void Thrust() {
+        float thrustThisFrame = thrustSpeed * Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D)) {
-            print("no rotate");
-        } else if (Input.GetKey(KeyCode.A)) {
-            transform.Rotate(Vector3.forward);
-            print("rotate left");
-        } else if (Input.GetKey(KeyCode.D)) {
-            transform.Rotate(Vector3.back);
-            print("rotate right");
-        }
-
-        rigidBody.freezeRotation = false;
-    }
-
-    private void thrust() {
         if (Input.GetKey(KeyCode.Space)) {
-            rigidBody.AddRelativeForce(Vector3.up);
+            rigidBody.AddRelativeForce(Vector3.up * thrustThisFrame);
             if (!thrustSound.isPlaying) thrustSound.Play();
         } else {
             thrustSound.Stop();
         }
     }
+
+    private void Rotate() {
+        float rotationThisFrame = rotationSpeed * Time.deltaTime;
+        rigidBody.freezeRotation = true;
+
+        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D)) {
+            print("no rotate");
+        } else if (Input.GetKey(KeyCode.A)) {
+            transform.Rotate(Vector3.forward * rotationThisFrame);
+        } else if (Input.GetKey(KeyCode.D)) {
+            transform.Rotate(Vector3.back * rotationThisFrame);
+        }
+
+        rigidBody.freezeRotation = false;
+    }
+
+    
 }
